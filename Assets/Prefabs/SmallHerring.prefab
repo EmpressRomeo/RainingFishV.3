@@ -615,6 +615,7 @@ GameObject:
   - component: {fileID: 2484747782598098327}
   - component: {fileID: 463955932420183855}
   - component: {fileID: 2384005249596014548}
+  - component: {fileID: -2906776079273980497}
   m_Layer: 0
   m_Name: SmallHerring
   m_TagString: Fish
@@ -742,6 +743,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-2906776079273980497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7257658502857218173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe2861adc9f40234e9e13302be6d2b18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallingPrefabs: []
+  puffSound: {fileID: 8300000, guid: c7865fd595be8a046a018f3e24771dd6, type: 3}
+  puffParticle: {fileID: 198760395510834500, guid: a12791d0a94e4c140ac99bd147d6518e, type: 3}
 --- !u!1 &7360320177742213942
 GameObject:
   m_ObjectHideFlags: 0

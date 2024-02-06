@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5719216344996333046}
   - component: {fileID: 1269023478079143697}
   - component: {fileID: 1617394541159923773}
+  - component: {fileID: -6263717334641045239}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Fire Ball
@@ -134,6 +135,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.018255603, y: 0.015206537, z: 0.010498337}
   m_Center: {x: 0.00034798216, y: -0.002064139, z: 0.004861991}
+--- !u!114 &-6263717334641045239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706239348485523688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27eefaf2b82faee41ad9a3b21dd53287, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallingPrefabs: []
+  puffSound: {fileID: 8300000, guid: c7865fd595be8a046a018f3e24771dd6, type: 3}
+  puffParticle: {fileID: 198760395510834500, guid: a12791d0a94e4c140ac99bd147d6518e, type: 3}
 --- !u!1001 &657129017476638305
 PrefabInstance:
   m_ObjectHideFlags: 0

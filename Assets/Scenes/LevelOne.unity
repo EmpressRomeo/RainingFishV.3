@@ -428,6 +428,7 @@ GameObject:
   m_Component:
   - component: {fileID: 181667860}
   - component: {fileID: 181667859}
+  - component: {fileID: 181667861}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -448,16 +449,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameIsActive: 1
-  fallingPrefabs:
-  - {fileID: 7257658502857218173, guid: ec976e028d2e4c746b2259aa94d93a9d, type: 3}
-  - {fileID: 6984728987422286349, guid: 1e0c8c54244b1c1439243a6c1dfab2c3, type: 3}
-  - {fileID: 1706239348485523688, guid: 3aed0b847eb12844b83d12138e988e46, type: 3}
-  spawnRangeRight: 6
-  spawnRangeLeft: -6
-  spawnPosY: 6
-  spawnPosZ: -1.9
-  startDelay: 1
-  spawnInterval: 1
   timeRemaining: 30
   timerText: {fileID: 651400764}
   gameOverText: {fileID: 104985866}
@@ -476,6 +467,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &181667861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181667858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c35151fbf2a55be4a89958496043ca16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallingPrefabs:
+  - {fileID: 7257658502857218173, guid: ec976e028d2e4c746b2259aa94d93a9d, type: 3}
+  - {fileID: 6984728987422286349, guid: 1e0c8c54244b1c1439243a6c1dfab2c3, type: 3}
+  - {fileID: 1706239348485523688, guid: 3aed0b847eb12844b83d12138e988e46, type: 3}
+  spawnRangeRight: 6
+  spawnRangeLeft: -6
+  spawnPosY: 6
+  spawnPosZ: -2
+  startDelay: 1
+  spawnInterval: 1
+  puffSound: {fileID: 8300000, guid: c7865fd595be8a046a018f3e24771dd6, type: 3}
+  soundLength: 1
+  puffParticle: {fileID: 198760395510834500, guid: a12791d0a94e4c140ac99bd147d6518e, type: 3}
+  delayDestroy: 1
 --- !u!1 &245090725
 GameObject:
   m_ObjectHideFlags: 0
@@ -3442,6 +3459,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: abe0f3cb09164c048b3cba749efab044, type: 3}
       propertyPath: m_Name
+      value: Bowl
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: abe0f3cb09164c048b3cba749efab044, type: 3}
+      propertyPath: m_TagString
       value: Bowl
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: abe0f3cb09164c048b3cba749efab044, type: 3}
