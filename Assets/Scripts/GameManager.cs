@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour //This Script is attached to an empty game object named "GameManger"
 {
-    public bool gameIsActive; 
-    
+    public bool gameIsActive;
+
     public GameObject[] fallingPrefabs; //variable for fish & fireball prefabs, make sure to assing prefabs to array in inspector
 
     [SerializeField] float spawnRangeRight; //SpawnFallingPrefabs
     [SerializeField] float spawnRangeLeft; //SpawnFallingPrefabs
     [SerializeField] float spawnPosY; //SpawnFallingPrefabs
     [SerializeField] float spawnPosZ; //SpawnFallingPrefabs
-    public float startDelay = 1.0f; //SpawnFallingPrefabs
-    public float spawnInterval; //SpawnFallingPrefabs
+    [SerializeField] float startDelay; //SpawnFallingPrefabs
+    [SerializeField] float spawnInterval; //SpawnFallingPrefabs
 
 
     [SerializeField] float timeRemaining; //GameTimer

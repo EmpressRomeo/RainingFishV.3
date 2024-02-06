@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour //This Script is attached to Player game object 
 {
     public float moveSpeed; //MovePlayer()
     public float rotationSpeed; //MovePlayer()
