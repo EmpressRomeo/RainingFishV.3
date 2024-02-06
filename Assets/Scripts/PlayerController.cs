@@ -7,20 +7,30 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed; //MovePlayer()
     public float rotationSpeed; //MovePlayer()
 
-    private Rigidbody playerRb; //AnimatePlayer()
-    private Animator playerAnim; //AnimatePlayer()
+    private Rigidbody playerRb; //AnimatePlayer
+    private Animator playerAnim; //AnimatePlayer
+
+    private Vector3 pos; //ScreenBoundary()
+    private float leftBoundary = -6.0f; //ScreenBoundary()
+    private float rightBoundary = 6.0f; //ScreenBoundary()
+
 
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>(); 
-        playerAnim = GetComponent<Animator>(); 
+        playerAnim = GetComponent<Animator>();
+
+
+        //screenBoundary = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Camera.main.transform.position.y, Camera.main.transform.position.z));
+       
     }
 
     // Update is called once per frame
     void Update()
     {
         MovePlayer();
+        ScreenBoundary(); 
     }
 
     public void MovePlayer()
@@ -46,5 +56,12 @@ public class PlayerController : MonoBehaviour
         }
         else
             playerAnim.SetBool("Running", false);
+    }
+
+    private void ScreenBoundary()
+    {
+        pos = transform.position;
+        pos.x = Mathf.Clamp(pos.x, leftBoundary, rightBoundary);
+        transform.position = pos;
     }
 }
