@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI; 
 
-public class ScoreCounter : MonoBehaviour //This Script is attached to Bowl which is a child of Player game object 
+public class ScoreCounter : MonoBehaviour //This Script is attached to Bowl 
 {
     public int score; //AddScore()
     public TextMeshProUGUI scoreText; //AddScore()

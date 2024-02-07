@@ -23,12 +23,15 @@ public class GameManager : MonoBehaviour //This Script is attached to an empty g
 
     [SerializeField] TextMeshProUGUI gameOverText; //GameOver
 
-    
+    public int score; //UpdateScore()
+    public TextMeshProUGUI scoreText; //UpdateScore()
+    public TextMeshProUGUI highScore; //UpdateScore()
 
     // Start is called before the first frame update
     void Start()
     {
-        StartLevelOne(); 
+        StartLevelOne();
+        highScore.text = "High Score: " + PlayerPrefs.GetInt("HighScore", 0).ToString();
     }
 
     // Update is called once per frame
@@ -74,4 +77,37 @@ public class GameManager : MonoBehaviour //This Script is attached to an empty g
         gameOverText.gameObject.SetActive(true);
         gameIsActive = false;
     }
+
+    public void AddScore() //Counts the number of fish collected by the player
+    {
+        score++;
+        scoreText.text = "Score: " + score.ToString();
+
+        SaveHighScore();
+    }
+
+    public void SubtractScore() //Resets score to zero if fireball hits player
+    {
+        score = 0;
+        scoreText.text = "Score: " + score.ToString();
+    }
+    
+
+    private void SaveHighScore()
+    {
+        if (score > PlayerPrefs.GetInt("HighScore", 0))
+        {
+            PlayerPrefs.SetInt("HighScore", score); //this line saves the player's score to the computer
+            highScore.text = "High Score: " + score.ToString();
+        }
+
+    }
+
+    public void Reset() //Click Rest High Score button to reset the High Score to zero
+    {
+        PlayerPrefs.DeleteKey("HighScore"); //use to delete HighScore to 0
+        highScore.text = "High Score: 0";
+    }
+
+
 }
