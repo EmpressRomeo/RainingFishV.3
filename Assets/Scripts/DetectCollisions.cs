@@ -6,7 +6,7 @@ public class DetectCollisions : MonoBehaviour //PARENT CLASS - INHERITANCE
 {
     protected GameManager gameManager; //create a reference to GameManager
 
-    public float delayDestroy = 0.1f;
+    public float delayDestroy = 0.4f;
     public float soundlength = 1.0f;
     private AudioSource collisionAudio;
 

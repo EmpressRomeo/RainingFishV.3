@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour //This Script is attached to an empty game object named "GameManger"
 {
-    public bool gameIsActive; 
+    public bool gameIsActive;
 
     [SerializeField] GameObject[] fallingPrefabs; // make sure to assign prefabs to array in inspector
 
@@ -23,9 +23,31 @@ public class GameManager : MonoBehaviour //This Script is attached to an empty g
 
     [SerializeField] TextMeshProUGUI gameOverText; //GameOver
 
-    public int score; //UpdateScore()
-    public TextMeshProUGUI scoreText; //UpdateScore()
-    public TextMeshProUGUI highScore; //UpdateScore()
+
+    public TextMeshProUGUI scoreText; //UpdateScore
+    public TextMeshProUGUI highScore; //UpdateScore
+
+    private int score; 
+
+    public int Score //ENCAPSULATION - create a property by adding a get/set accessor to "m_score" variable
+    {
+        get
+        {
+            return score;
+        }
+
+        set
+        {
+            if (value < 0)
+            {
+                score = 0;
+            }
+            else
+            {
+                score = value;
+            }
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -42,10 +64,10 @@ public class GameManager : MonoBehaviour //This Script is attached to an empty g
 
     private void StartLevelOne()
     {
-        InvokeRepeating("SpawnFallingPrefabs", startDelay, spawnInterval);  //SpawnFallingPrefabs
+        InvokeRepeating("SpawnFallingPrefabs", startDelay, spawnInterval);  
     }
 
-    private  void GameTimer()
+    private void GameTimer()
     {
         if (gameIsActive)
         {
@@ -60,7 +82,7 @@ public class GameManager : MonoBehaviour //This Script is attached to an empty g
 
     private void SpawnFallingPrefabs()
     {
-        if (gameIsActive) //falling prefabs will only spawn when gameIsActive = true, note gameIsActive is located in GameManager script
+        if (gameIsActive) //falling prefabs will only spawn when gameIsActive = true
         {
             int fallingPrefabsIndex = Random.Range(0, fallingPrefabs.Length); //create fallingPrefabsIndex integer variable so that we can call random falling objects 1, 2, and 3 in our array
 
@@ -78,7 +100,7 @@ public class GameManager : MonoBehaviour //This Script is attached to an empty g
         gameIsActive = false;
     }
 
-    public void AddScore() //Counts the number of fish collected by the player
+    public void AddScore() //fish
     {
         score++;
         scoreText.text = "Score: " + score.ToString();
@@ -86,12 +108,13 @@ public class GameManager : MonoBehaviour //This Script is attached to an empty g
         SaveHighScore();
     }
 
-    public void SubtractScore() //Resets score to zero if fireball hits player
+    public void SubtractScore() //fireball
     {
-        score = 0;
+        Score -= 5; //ENCAPSULATION - using property "Score", NOT the variable to ensure score does not become negative number
+
         scoreText.text = "Score: " + score.ToString();
     }
-    
+
 
     private void SaveHighScore()
     {

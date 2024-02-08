@@ -10,6 +10,7 @@ public class FireballCollision : DetectCollisions //CHILD CLASS - INHERITANCE
     {
         base.OnTriggerEnter(other);
 
-        gameManager.SubtractScore(); //changed from AddScore() to SubtractScore()        
+        gameManager.SubtractScore(); //changed from AddScore() to SubtractScore()
+       
     }
 }
