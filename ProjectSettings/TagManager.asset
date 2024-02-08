@@ -9,6 +9,7 @@ TagManager:
   - Fire Ball
   - Fish
   - Bowl
+  - GameMusic
   layers:
   - Default
   - TransparentFX

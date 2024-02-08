@@ -654,6 +654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameIsActive: 1
+  displayPlayerName: {fileID: 638666098}
   fallingPrefabs:
   - {fileID: 7257658502857218173, guid: ec976e028d2e4c746b2259aa94d93a9d, type: 3}
   - {fileID: 6984728987422286349, guid: 1e0c8c54244b1c1439243a6c1dfab2c3, type: 3}

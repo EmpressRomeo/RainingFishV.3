@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 {
     public bool gameIsActive;
 
+    public TextMeshProUGUI displayPlayerName; 
+    
     [SerializeField] GameObject[] fallingPrefabs; // make sure to assign prefabs to array in inspector
 
     private float spawnRangeRight = 6.0f; //SpawnFallingPrefabs
@@ -47,7 +49,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Start()
+    void Awake()
     {
         StartLevelOne();
         highScore.text = "High Score: " + PlayerPrefs.GetInt("HighScore", 0).ToString();
@@ -60,7 +62,12 @@ public class GameManager : MonoBehaviour
 
     private void StartLevelOne()
     {
-        InvokeRepeating("SpawnFallingPrefabs", startDelay, spawnInterval);  
+        if (DoNotDestroy.Instance != null)
+        {
+            displayPlayerName.text = DoNotDestroy.Instance.playerName;
+        }
+
+        InvokeRepeating("SpawnFallingPrefabs", startDelay, spawnInterval);
     }
 
     private void GameTimer()
