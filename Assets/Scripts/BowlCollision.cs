@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BowlCollision : MonoBehaviour
+
+//Initially wanted to do this all in the DetectCollisions script. I wanted prefabs to be destroyed instantly when they 
+//collided with the bowl, however once an object is destroyed so are any particles/sounds attached to it.
+//Therefore, to have the particles/sounds play without being cutoff I created this BowlCollision script. 
+public class BowlCollision : MonoBehaviour 
 {
     private AudioSource bowlAudio;
     public AudioClip splashSound; 

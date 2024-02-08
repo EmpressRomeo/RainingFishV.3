@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
+//ClickQuit()
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -20,10 +22,9 @@ public class MainMenuManger : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+  public void ClickStart()
     {
-        
+        SceneManager.LoadScene(1);
     }
 
     public void ClickHowToPlay() //When player clicks the How To Play button, instructions will appear
@@ -31,12 +32,12 @@ public class MainMenuManger : MonoBehaviour
         howToPlayScreen.gameObject.SetActive(true); 
     }
 
-    public void ClickExit() //When player clicks the X Button they will close out the instructions
+    public void ClickExit() //When player clicks the "X" Button they will close out the instructions
     {
         howToPlayScreen.gameObject.SetActive(false); 
     }
 
-    public void ClickQuit() //When player clicks the Quit Button they will exit the application
+    public void ClickQuit() 
     {
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();

@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour //This Script is attached to an empty game object named "GameManger"
+public class GameManager : MonoBehaviour 
 {
     public bool gameIsActive;
 
@@ -16,20 +16,18 @@ public class GameManager : MonoBehaviour //This Script is attached to an empty g
     private float spawnPosY = 6.0f; //SpawnFallingPrefabs
     private float spawnPosZ = -2.0f; //SpawnFallingPrefabs
     private float startDelay = 1.0f; //SpawnFallingPrefabs
-    private float spawnInterval = 1.0f; //SpawnFallingPrefabs
+    private float spawnInterval = 1.5f; //SpawnFallingPrefabs
 
     [SerializeField] float timeRemaining; //GameTimer
     [SerializeField] TextMeshProUGUI timerText; //GameTimer
 
     [SerializeField] TextMeshProUGUI gameOverText; //GameOver
 
-
     public TextMeshProUGUI scoreText; //UpdateScore
     public TextMeshProUGUI highScore; //UpdateScore
+    private int score; //UpdateScore
 
-    private int score; 
-
-    public int Score //ENCAPSULATION - create a property by adding a get/set accessor to "m_score" variable
+    public int Score //ENCAPSULATION - create a property by adding a get/set accessor to "score" variable
     {
         get
         {
@@ -49,14 +47,12 @@ public class GameManager : MonoBehaviour //This Script is attached to an empty g
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         StartLevelOne();
         highScore.text = "High Score: " + PlayerPrefs.GetInt("HighScore", 0).ToString();
     }
 
-    // Update is called once per frame
     void Update()
     {
         GameTimer();
@@ -115,7 +111,6 @@ public class GameManager : MonoBehaviour //This Script is attached to an empty g
         scoreText.text = "Score: " + score.ToString();
     }
 
-
     private void SaveHighScore()
     {
         if (score > PlayerPrefs.GetInt("HighScore", 0))
@@ -126,7 +121,7 @@ public class GameManager : MonoBehaviour //This Script is attached to an empty g
 
     }
 
-    public void Reset() //Click Rest High Score button to reset the High Score to zero
+    public void Reset() //Click Reset High Score button to reset the High Score to zero
     {
         PlayerPrefs.DeleteKey("HighScore"); //use to delete HighScore to 0
         highScore.text = "High Score: 0";
