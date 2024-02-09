@@ -14,7 +14,7 @@ public class DoNotDestroy : MonoBehaviour
 
     private MainMenuManger mainMenuManager; //create a reference to MainMenuManager Script
 
-    //public string playerName; //SetPlayerName()
+    public string playerName; //SetPlayerName()
 
     private AudioSource gameMusic; //PlayMusic()
 
@@ -33,7 +33,7 @@ public class DoNotDestroy : MonoBehaviour
         PlayMusic();
         gameMusic = GetComponent<AudioSource>();
 
-        //LoadPlayerName(); //Make sure this is at the end of Awake()
+        LoadPlayerName(); //Make sure this is at the end of Awake()
     }
 
     private void Start()
@@ -42,40 +42,42 @@ public class DoNotDestroy : MonoBehaviour
         mainMenuManager = GameObject.Find("MainMenuCanvas").GetComponent<MainMenuManger>(); //Initialize MainMenuManager using the Find() method
     }
 
-    //public void SetPlayerName() //Set our player_name to be equal to what is entered in inputfield in MainMenu scene
-    //{
-       // playerName = mainMenuManager.nameInputField.text;
-    //}
+    public void SetPlayerName() //Set our player_name to be equal to what is entered in inputfield in MainMenu scene
+    {
+        playerName = mainMenuManager.nameInputField.text;
+    }
 
 
-    //[System.Serializable]
-    //class SaveData
-    //{
-        //public string playerName;
-    //}
+    [System.Serializable]
+    class SaveData
+    {
+        public string playerName;
+    }
 
-   // public void SavePlayerName() //Save to JSON
-   // {
-      //  SaveData data = new SaveData();
 
-      //  data.playerName = playerName;
 
-     //   string json = JsonUtility.ToJson(data);
+    public void SavePlayerName() //Save to JSON
+    {
+        SaveData data = new SaveData();
 
-       // File.WriteAllText(Application.persistentDataPath + ".savefile.json", json);
-  //  }
+        data.playerName = playerName;
 
-    //public void LoadPlayerName() //Load from JSON
-   // {
-       // string path = Application.persistentDataPath + "/savefile.json";
-       // if (File.Exists(path))
-       // {
-           // string json = File.ReadAllText(path);
-          //  SaveData data = JsonUtility.FromJson<SaveData>(json);
+        string json = JsonUtility.ToJson(data);
 
-          //  playerName = data.playerName;
-       // }
-   // }
+        File.WriteAllText(Application.persistentDataPath + ".savefile.json", json);
+    }
+
+    public void LoadPlayerName() //Load from JSON
+    {
+        string path = Application.persistentDataPath + "/savefile.json";
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+            playerName = data.playerName;
+        }
+    }
 
     private void PlayMusic()
     {

@@ -29,8 +29,6 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI highScore; //UpdateScore
     private int score; //UpdateScore
 
-
-
     public int Score //ENCAPSULATION - create a property by adding a get/set accessor to "score" variable
     {
         get
@@ -53,11 +51,15 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        if (DoNotDestroy.Instance != null)
+        {
+            displayPlayerName.text = DoNotDestroy.Instance.playerName;
+        }
+
         InvokeRepeating("SpawnFallingPrefabs", startDelay, spawnInterval);
         highScore.text = "High Score: " + PlayerPrefs.GetInt("HighScore", 0).ToString();
     }
 
- 
     void Update()
     {
         GameTimer();
