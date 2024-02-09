@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         if (DoNotDestroy.Instance != null)
         {
-            displayPlayerName.text = DoNotDestroy.Instance.playerName;
+            displayPlayerName.text = DoNotDestroy.Instance.name;
         }
 
         InvokeRepeating("SpawnFallingPrefabs", startDelay, spawnInterval);

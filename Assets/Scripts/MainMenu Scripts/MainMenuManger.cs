@@ -13,27 +13,25 @@ using UnityEditor;
 public class MainMenuManger : MonoBehaviour
 {
     public Canvas howToPlayScreen;
-    //public TMP_InputField nameInputField; //SetPlayerName()
 
-    [SerializeField] TMP_InputField nameInput; //NEW NEW
+   public TMP_InputField playerName; //SetPlayerName()
 
-
-    List<InputEntry> entries = new List<InputEntry>(); //NEW NEW Use the constructor that we create in InputEntry class script
-
-    public void AddNameToList() //NEW NEW INPUT HANDLER
-    {
-        entries.Add(new InputEntry (nameInput.text, Random.Range (0, 100))); //note random range is just a random #, will update to score later
-        nameInput.text = ""; 
-    }
+    public DoNotDestroy dataManager; //will change to do not destroy later
 
     private void Start()
     {
-
+        dataManager.Load();
+        playerName.text = dataManager.name; 
     }
 
+    public void ChangePlayerName(string text)
+    {
+        dataManager.name = text;  
+    }
     public void ClickStart()
     {
         DoNotDestroy.Instance.SetPlayerName();  
+       
         SceneManager.LoadScene(1);
     }
 
