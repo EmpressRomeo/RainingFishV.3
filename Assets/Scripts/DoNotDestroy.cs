@@ -14,13 +14,9 @@ public class DoNotDestroy : MonoBehaviour
 
     private MainMenuManger mainMenuManager; //create a reference to MainMenuManager Script
 
-    public string name; //SetPlayerName()
+    public string playerName; //SetPlayerName()
 
     private AudioSource gameMusic; //PlayMusic()
-
- 
-
-    private string file = "player.txt";
 
     private void Awake()
     {
@@ -37,7 +33,7 @@ public class DoNotDestroy : MonoBehaviour
         PlayMusic();
         gameMusic = GetComponent<AudioSource>();
 
-        Load(); //Make sure this is at the end of Awake()
+        LoadPlayerName(); //Make sure this is at the end of Awake()
     }
 
     private void Start()
@@ -46,89 +42,52 @@ public class DoNotDestroy : MonoBehaviour
         mainMenuManager = GameObject.Find("MainMenuCanvas").GetComponent<MainMenuManger>(); //Initialize MainMenuManager using the Find() method
     }
 
-    public void SetPlayerName()
+    public void SetPlayerName() //Set our playerName to be equal to what is entered in inputfield in MainMenu scene
     {
-        name = mainMenuManager.playerName.text;
+        playerName = mainMenuManager.nameInputField.text;
+      
     }
-    //public void SetPlayerName() //Set our player_name to be equal to what is entered in inputfield in MainMenu scene
-    //{
-    // playerName = mainMenuManager.nameInputField.text;
-    // }
 
-
-    //[System.Serializable]
-    //  class SaveData //this is PlayerData
-    //  {
-    // public string playerName;
-    // }
-    [System.Serializable]
-    class PlayerData
-        {
-        public string name; 
-        }
-
-
-    public void Save() 
+    //*******JSON*******
+    //1. Create serializable class to describe variable(s) we want to store in JSON data
+    [System.Serializable] 
+    public class SaveData
     {
-        PlayerData data = new PlayerData();
-        data.name = name;
+        public string playerName;
+    }
+
+    //*******Save to JSON*******
+    public void SavePlayerName() 
+    {
+        //2. Creates an instance of your class 
+        SaveData data = new SaveData(); 
+        data.playerName = playerName;   
+       
+        //3. Use JsonUtility.ToJson method to serialize it (convert it) to JSON format
         string json = JsonUtility.ToJson(data);
-        WriteToFile(file, json); 
-        //SaveData data = new SaveData();
+        File.WriteAllText(Application.persistentDataPath + ".savefile.json", json);
 
-        //data.playerName = playerName;
-
-        //string json = JsonUtility.ToJson(data);
-
-       //File.WriteAllText(Application.persistentDataPath + ".savefile.json", json);
+        //4. JSON now contains '{"playerName": "playerName"}'
     }
 
-    public void Load() //Load from JSON
+    //*******Load from JSON*******
+    public void LoadPlayerName() 
     {
-        PlayerData data = new PlayerData();
-        data.name = name; 
-        string json = ReadFromFile(file);
-        JsonUtility.FromJsonOverwrite(json, data); 
-
-        //string path = Application.persistentDataPath + "/savefile.json";
-        //if (File.Exists(path))
-        //{
-          //  string json = File.ReadAllText(path);
-          //  SaveData data = JsonUtility.FromJson<SaveData>(json);
-
-           // playerName = data.playerName;
-       // }
-    }
-
-    private void WriteToFile(string fileName, string json)
-    {
-        string path = GetFilePath(fileName);
-        FileStream fileStream = new FileStream(path, FileMode.Create); 
-
-        using(StreamWriter writer = new StreamWriter(fileStream))
-        {
-            writer.Write(json); 
-        }
-    }
-    private string ReadFromFile(string fileName)
-    {
-        string path = GetFilePath(fileName);
+        //5. Check to see if the save file path exists
+        string path = Application.persistentDataPath + "/savefile.json";
         if (File.Exists(path))
         {
-            using (StreamReader reader = new StreamReader(path))
-            {
-                string json = reader.ReadToEnd();
-                return json;
-            }
+            //6. If the path exists convert JSON format back into an object
+            string json = File.ReadAllText(path);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+            playerName = data.playerName;
         }
-        else
-            Debug.LogWarning("File no found!");
-        return ""; 
     }
 
-    private string GetFilePath(string fileName)
+    public void OverwritePlayerName()
     {
-        return Application.persistentDataPath + "/" + fileName; 
+        JsonUtility.FromJsonOverwrite(json, data);
     }
 
     private void PlayMusic()
