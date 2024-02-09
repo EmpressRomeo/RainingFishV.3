@@ -42,52 +42,41 @@ public class DoNotDestroy : MonoBehaviour
         mainMenuManager = GameObject.Find("MainMenuCanvas").GetComponent<MainMenuManger>(); //Initialize MainMenuManager using the Find() method
     }
 
-    public void SetPlayerName() //Set our playerName to be equal to what is entered in inputfield in MainMenu scene
+    public void SetPlayerName() //Set our player_name to be equal to what is entered in inputfield in MainMenu scene
     {
         playerName = mainMenuManager.nameInputField.text;
-      
     }
 
-    //*******JSON*******
-    //1. Create serializable class to describe variable(s) we want to store in JSON data
-    [System.Serializable] 
-    public class SaveData
+
+    [System.Serializable]
+    class SaveData
     {
         public string playerName;
     }
 
-    //*******Save to JSON*******
-    public void SavePlayerName() 
-    {
-        //2. Creates an instance of your class 
-        SaveData data = new SaveData(); 
-        data.playerName = playerName;   
-       
-        //3. Use JsonUtility.ToJson method to serialize it (convert it) to JSON format
-        string json = JsonUtility.ToJson(data);
-        File.WriteAllText(Application.persistentDataPath + ".savefile.json", json);
 
-        //4. JSON now contains '{"playerName": "playerName"}'
+
+    public void SavePlayerName() //Save to JSON
+    {
+        SaveData data = new SaveData();
+
+        data.playerName = playerName;
+
+        string json = JsonUtility.ToJson(data);
+
+        File.WriteAllText(Application.persistentDataPath + ".savefile.json", json);
     }
 
-    //*******Load from JSON*******
-    public void LoadPlayerName() 
+    public void LoadPlayerName() //Load from JSON
     {
-        //5. Check to see if the save file path exists
         string path = Application.persistentDataPath + "/savefile.json";
         if (File.Exists(path))
         {
-            //6. If the path exists convert JSON format back into an object
             string json = File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
             playerName = data.playerName;
         }
-    }
-
-    public void OverwritePlayerName()
-    {
-        JsonUtility.FromJsonOverwrite(json, data);
     }
 
     private void PlayMusic()
