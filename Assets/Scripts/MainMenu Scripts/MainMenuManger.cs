@@ -13,16 +13,17 @@ using UnityEditor;
 public class MainMenuManger : MonoBehaviour
 {
     public Canvas howToPlayScreen;
-    public TMP_InputField nameInputField; //SetPlayerName()
 
-    private void Start()
+    private JsonReadWriteSystem jsonReadWriteSystem; //create a reference to JsonReadWriteSystem script
+
+    void Start()
     {
-
+        jsonReadWriteSystem = GameObject.Find("MainMenuCanvas").GetComponent<JsonReadWriteSystem>(); //Initialize GameManager using the Find() method 
     }
 
     public void ClickStart()
     {
-        DoNotDestroy.Instance.SetPlayerName();  
+        jsonReadWriteSystem.SaveToJson(); 
         SceneManager.LoadScene(1);
     }
 

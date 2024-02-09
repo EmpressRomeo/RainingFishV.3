@@ -14,6 +14,8 @@ public class ButtonScript : MonoBehaviour
 {
     private GameManager gameManager; //create a reference to GameManager
 
+    private JsonReadWriteSystem jsonReadWriteSystem; //create a reference to JsonReadWriteSystem script
+
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>(); //Initialize GameManager using the Find() method 
@@ -21,7 +23,8 @@ public class ButtonScript : MonoBehaviour
 
     public void ClickRestart()
     {
-        SceneManager.LoadScene(1);
+        jsonReadWriteSystem.LoadFromJson(); 
+    SceneManager.LoadScene(1);
     }
 
     public void ClickMainMenu()
