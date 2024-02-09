@@ -4,23 +4,35 @@ using UnityEngine;
 
 public class DetectCollisions : MonoBehaviour //PARENT CLASS - INHERITANCE
 {
-    protected GameManager gameManager; //create a reference to GameManager
+    //Reference to GameManager script
+    protected GameManager gameManager; 
 
-    public float delayDestroy = 0.4f;
-    public float soundlength = 1.0f;
+    private float delayDestroy = 0.4f;
+    private float soundlength = 1.0f;
     private AudioSource collisionAudio;
 
     //Variables that play when falling prefabs hit the ground
-    public AudioClip groundSound;
-    public ParticleSystem groundParticle;
+    [SerializeField] AudioClip groundSound;
+    [SerializeField] ParticleSystem groundParticle;
 
-    void Start()
+    private void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>(); //Initialize GameManager using the Find() method 
+        //Initialize GameManager using the Find() method
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();  
         collisionAudio = GetComponent<AudioSource>();
     }
 
-    public void OnCollisionEnter(Collision collision) 
+    //POLYMORPHISM - Using virtual method to enable overriding in child class: FireballCollision script
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Bowl")
+        {
+            gameManager.AddScore();
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision) 
     {
         if (collision.gameObject.tag == "Ground")
         {
@@ -30,12 +42,6 @@ public class DetectCollisions : MonoBehaviour //PARENT CLASS - INHERITANCE
         }
 
     }
-    protected virtual void OnTriggerEnter(Collider other) //Using virtual method to enable overriding in child class: FireballCollision script
-    {
-        if (other.tag == "Bowl")
-        {
-            gameManager.AddScore();
-            Destroy(gameObject);
-        }
-    }
+
+    
 }

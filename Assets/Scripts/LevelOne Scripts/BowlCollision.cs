@@ -24,13 +24,13 @@ public class BowlCollision : MonoBehaviour
     {
         if (other.tag == "Fish")
         {
-            splashParticle.Play(); //when fish collide with bowl splash particle will appear
-            bowlAudio.PlayOneShot(splashSound, soundLength); //when fish collide with bowl splash sound will play
+            splashParticle.Play();
+            bowlAudio.PlayOneShot(splashSound, soundLength); 
         }
         else
         {
-            explosionParticle.Play(); //when fireball collides with bowl explosion particle will appear
-            bowlAudio.PlayOneShot(explosionSound, soundLength); //when fireball collides with bowl explosion sound will play
+            explosionParticle.Play(); 
+            bowlAudio.PlayOneShot(explosionSound, soundLength); 
         }
 
     }

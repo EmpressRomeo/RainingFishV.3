@@ -12,31 +12,30 @@ using UnityEditor;
 
 public class MainMenuManger : MonoBehaviour
 {
-    public Canvas howToPlayScreen;
-    public TMP_InputField nameInputField; //SetPlayerName()
+    [SerializeField] Canvas howToPlayScreen;
 
-    private void Start()
-    {
+    //SetPlayerName in DoNotDestroy script
+    public TMP_InputField nameInputField; 
 
-    }
 
-    public void ClickStart()
-    {
-        DoNotDestroy.Instance.SetPlayerName();  
+    private void ClickStart()
+    {  
         SceneManager.LoadScene(1);
     }
 
-    public void ClickHowToPlay() //When player clicks the How To Play button, instructions will appear
+    //When player clicks the How To Play button, instructions will appear
+    private void ClickHowToPlay() 
     {
         howToPlayScreen.gameObject.SetActive(true); 
     }
 
-    public void ClickExit() //When player clicks the "X" Button they will close out the instructions
+    //When player clicks the "X" Button they will close out the instructions
+    private void ClickExit() 
     {
         howToPlayScreen.gameObject.SetActive(false); 
     }
 
-    public void ClickQuit() 
+    private void ClickQuit() 
     {
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();

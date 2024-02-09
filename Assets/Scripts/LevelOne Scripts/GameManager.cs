@@ -5,29 +5,48 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour 
+public class GameManager : MonoBehaviour
 {
-    public bool gameIsActive;
+    [SerializeField] bool gameIsActive;
 
-    public TextMeshProUGUI displayPlayerName; 
-    
-    [SerializeField] GameObject[] fallingPrefabs; // make sure to assign prefabs to array in inspector
+    [SerializeField] TextMeshProUGUI displayPlayerName;
 
-    private float spawnRangeRight = 6.0f; //SpawnFallingPrefabs
-    private float spawnRangeLeft = -6.0f; //SpawnFallingPrefabs
-    private float spawnPosY = 6.0f; //SpawnFallingPrefabs
-    private float spawnPosZ = -2.0f; //SpawnFallingPrefabs
-    private float startDelay = 1.0f; //SpawnFallingPrefabs
-    private float spawnInterval = 1.5f; //SpawnFallingPrefabs
+    //SpawnFallingPrefabs
+    [SerializeField] GameObject[] fallingPrefabs;
+    private float spawnRange = 6.0f;
+    private float spawnPosY = 6.0f;
+    private float spawnPosZ = -2.0f;
+    private float startDelay = 1.0f;
+    private float spawnInterval = 0.5f;
 
-    [SerializeField] float timeRemaining; //GameTimer
-    [SerializeField] TextMeshProUGUI timerText; //GameTimer
+    //GameTimer
+    [SerializeField] float timeRemaining;
+    [SerializeField] TextMeshProUGUI timerText;
 
-    [SerializeField] TextMeshProUGUI gameOverText; //GameOver
+    //UpdateScore
+    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI highScore; 
+    private int score; 
 
-    public TextMeshProUGUI scoreText; //UpdateScore
-    public TextMeshProUGUI highScore; //UpdateScore
-    private int score; //UpdateScore
+    //GameOver
+    [SerializeField] TextMeshProUGUI gameOverText;
+
+    void Awake()
+    {
+        if (DoNotDestroy.Instance != null)
+        {
+            displayPlayerName.text = DoNotDestroy.Instance.playerName;
+        }
+
+        InvokeRepeating("SpawnFallingPrefabs", startDelay, spawnInterval);
+
+        highScore.text = "High Score: " + PlayerPrefs.GetInt("HighScore", 0).ToString();
+    }
+
+    void Update()
+    {
+        GameTimer(); //ABSTRACTION
+    }
 
     public int Score //ENCAPSULATION - create a property by adding a get/set accessor to "score" variable
     {
@@ -49,26 +68,32 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Awake()
+    public void SubtractScore()
     {
-        if (DoNotDestroy.Instance != null)
+        Score -= 5; //ENCAPSULATION - using property "Score", NOT the variable to ensure score does not become negative number
+
+        scoreText.text = "Score: " + score.ToString();
+    }
+
+    public void AddScore()
+    {
+        score++;
+        scoreText.text = "Score: " + score.ToString();
+
+        SaveHighScore();
+    }
+
+    private void SaveHighScore()
+    {
+        if (score > PlayerPrefs.GetInt("HighScore", 0))
         {
-            displayPlayerName.text = DoNotDestroy.Instance.playerName;
+            PlayerPrefs.SetInt("HighScore", score);
+            highScore.text = "High Score: " + score.ToString();
         }
 
-        InvokeRepeating("SpawnFallingPrefabs", startDelay, spawnInterval);
-        highScore.text = "High Score: " + PlayerPrefs.GetInt("HighScore", 0).ToString();
     }
-
-    void Update()
-    {
-        GameTimer();
-    }
-
-   
-
-  
-    private void GameTimer()
+ 
+    private void GameTimer() //ABSTRACTION
     {
         if (gameIsActive)
         {
@@ -83,15 +108,13 @@ public class GameManager : MonoBehaviour
 
     private void SpawnFallingPrefabs()
     {
-        if (gameIsActive) //falling prefabs will only spawn when gameIsActive = true
+        if (gameIsActive) 
         {
-            int fallingPrefabsIndex = Random.Range(0, fallingPrefabs.Length); //create fallingPrefabsIndex integer variable so that we can call random falling objects 1, 2, and 3 in our array
+            int fallingPrefabsIndex = Random.Range(0, fallingPrefabs.Length); 
 
+            Vector3 spawnPos = new Vector3(Random.Range(-spawnRange, spawnRange), spawnPosY, spawnPosZ); 
 
-            Vector3 spawnPos = new Vector3(Random.Range(spawnRangeLeft, spawnRangeRight), spawnPosY, spawnPosZ); //create spawnPos variable so that falling prefabs will spawn in random place on x axis at the top of the screen
-
-
-            Instantiate(fallingPrefabs[fallingPrefabsIndex], spawnPos, fallingPrefabs[fallingPrefabsIndex].transform.rotation); //Use instantiate method to create clones of the prefabs for spawning
+            Instantiate(fallingPrefabs[fallingPrefabsIndex], spawnPos, fallingPrefabs[fallingPrefabsIndex].transform.rotation); 
         }
     }
 
@@ -101,34 +124,15 @@ public class GameManager : MonoBehaviour
         gameIsActive = false;
     }
 
-    public void AddScore() //fish
+
+   
+
+
+
+    //Click Reset High Score button, note this is for testing only and will not be visible in playmode
+    public void Reset() 
     {
-        score++;
-        scoreText.text = "Score: " + score.ToString();
-
-        SaveHighScore();
-    }
-
-    public void SubtractScore() //fireball
-    {
-        Score -= 5; //ENCAPSULATION - using property "Score", NOT the variable to ensure score does not become negative number
-
-        scoreText.text = "Score: " + score.ToString();
-    }
-
-    private void SaveHighScore()
-    {
-        if (score > PlayerPrefs.GetInt("HighScore", 0))
-        {
-            PlayerPrefs.SetInt("HighScore", score); //this line saves the player's score to the computer
-            highScore.text = "High Score: " + score.ToString();
-        }
-
-    }
-
-    public void Reset() //Click Reset High Score button to reset the High Score to zero
-    {
-        PlayerPrefs.DeleteKey("HighScore"); //use to delete HighScore to 0
+        PlayerPrefs.DeleteKey("HighScore"); 
         highScore.text = "High Score: 0";
     }
 

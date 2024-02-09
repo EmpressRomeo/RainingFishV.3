@@ -5,12 +5,13 @@ using UnityEngine;
 public class FireballCollision : DetectCollisions //CHILD CLASS - INHERITANCE
 {
 
-
-    protected override void OnTriggerEnter(Collider other) //POLYMORPHISM - Using override method to override parent class: DetectCollisions script
+    //POLYMORPHISM - Using override method to override parent class: DetectCollisions script
+    protected override void OnTriggerEnter(Collider other) 
     {
-        base.OnTriggerEnter(other);
-
-        gameManager.SubtractScore(); //changed from AddScore() to SubtractScore()
-       
+        if (other.tag == "Bowl")
+        {
+            gameManager.SubtractScore(); //changed from AddScore() to SubtractScore()
+            Destroy(gameObject);
+        }
     }
 }
