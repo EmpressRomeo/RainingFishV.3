@@ -13,17 +13,16 @@ using UnityEditor;
 public class MainMenuManger : MonoBehaviour
 {
     public Canvas howToPlayScreen;
+    public TMP_InputField nameInputField; //SetPlayerName()
 
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+
     }
 
-  public void ClickStart()
+    public void ClickStart()
     {
+        DoNotDestroy.Instance.SetPlayerName();  
         SceneManager.LoadScene(1);
     }
 

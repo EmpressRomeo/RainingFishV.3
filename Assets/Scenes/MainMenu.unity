@@ -1753,9 +1753,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1126629517}
-  - component: {fileID: 1126629516}
   - component: {fileID: 1126629515}
   - component: {fileID: 1126629514}
+  - component: {fileID: 1126629518}
   m_Layer: 0
   m_Name: DoNotDestroyGameObject
   m_TagString: GameMusic
@@ -1867,20 +1867,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1126629516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1126629513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7459eda1df739b4895656eaef145497, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputField: {fileID: 1866596075}
-  playerName: 
 --- !u!4 &1126629517
 Transform:
   m_ObjectHideFlags: 0
@@ -1896,6 +1882,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1126629518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126629513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7459eda1df739b4895656eaef145497, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: 
 --- !u!1 &1134118820
 GameObject:
   m_ObjectHideFlags: 0
@@ -3253,7 +3252,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1126629516}
+      - m_Target: {fileID: 1126629518}
         m_TargetAssemblyTypeName: DoNotDestroy, Assembly-CSharp
         m_MethodName: SetPlayerName
         m_Mode: 1
@@ -3701,7 +3700,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1968855713}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1968855715
 Camera:
   m_ObjectHideFlags: 0
@@ -4019,6 +4018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   howToPlayScreen: {fileID: 1466832142}
+  nameInputField: {fileID: 1866596075}
 --- !u!1 &2106374917
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,8 +9,11 @@ public class DoNotDestroy : MonoBehaviour
 {
     public static DoNotDestroy Instance;
 
-    
-    public TMP_InputField inputField; //SetPlayerName()
+    //public TMP_InputField nameInputField; //SetPlayerName()
+    //public string playerName; //SetPlayerName()
+
+    private MainMenuManger mainMenuManager; //create a reference to MainMenuManager Script
+
     public string playerName; //SetPlayerName()
 
     private AudioSource gameMusic; //PlayMusic()
@@ -30,12 +33,20 @@ public class DoNotDestroy : MonoBehaviour
         PlayMusic();
         gameMusic = GetComponent<AudioSource>();
 
-
+        LoadPlayerName(); //Make sure this is at the end of Awake()
     }
+
+    private void Start()
+    {
+
+        mainMenuManager = GameObject.Find("MainMenuCanvas").GetComponent<MainMenuManger>(); //Initialize MainMenuManager using the Find() method
+    }
+
     public void SetPlayerName() //Set our player_name to be equal to what is entered in inputfield in MainMenu scene
     {
-        playerName = inputField.text;
+        playerName = mainMenuManager.nameInputField.text;
     }
+
 
     [System.Serializable]
     class SaveData
@@ -43,17 +54,20 @@ public class DoNotDestroy : MonoBehaviour
         public string playerName;
     }
 
-    public void SavePlayerName() //method that transforms SaveData class into JSON format and writes it to a file
+
+
+    public void SavePlayerName() //Save to JSON
     {
         SaveData data = new SaveData();
+
         data.playerName = playerName;
 
         string json = JsonUtility.ToJson(data);
 
-        File.WriteAllText(Application.persistentDataPath + ".savefile.sjon", json);
+        File.WriteAllText(Application.persistentDataPath + ".savefile.json", json);
     }
 
-    public void LoadPlayerName() //method that transforms the data from JSON file 
+    public void LoadPlayerName() //Load from JSON
     {
         string path = Application.persistentDataPath + "/savefile.json";
         if (File.Exists(path))

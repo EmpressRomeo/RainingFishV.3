@@ -51,7 +51,12 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        StartLevelOne();
+        if (DoNotDestroy.Instance != null)
+        {
+            displayPlayerName.text = DoNotDestroy.Instance.playerName;
+        }
+
+        InvokeRepeating("SpawnFallingPrefabs", startDelay, spawnInterval);
         highScore.text = "High Score: " + PlayerPrefs.GetInt("HighScore", 0).ToString();
     }
 
@@ -60,16 +65,9 @@ public class GameManager : MonoBehaviour
         GameTimer();
     }
 
-    private void StartLevelOne()
-    {
-        if (DoNotDestroy.Instance != null)
-        {
-            displayPlayerName.text = DoNotDestroy.Instance.playerName;
-        }
+   
 
-        InvokeRepeating("SpawnFallingPrefabs", startDelay, spawnInterval);
-    }
-
+  
     private void GameTimer()
     {
         if (gameIsActive)
