@@ -18,24 +18,24 @@ public class MainMenuManger : MonoBehaviour
     public TMP_InputField nameInputField; 
 
 
-    private void ClickStart()
+    public void ClickStart()
     {  
         SceneManager.LoadScene(1);
     }
 
     //When player clicks the How To Play button, instructions will appear
-    private void ClickHowToPlay() 
+    public void ClickHowToPlay() 
     {
         howToPlayScreen.gameObject.SetActive(true); 
     }
 
     //When player clicks the "X" Button they will close out the instructions
-    private void ClickExit() 
+    public void ClickExit() 
     {
         howToPlayScreen.gameObject.SetActive(false); 
     }
 
-    private void ClickQuit() 
+    public void ClickQuit() 
     {
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();

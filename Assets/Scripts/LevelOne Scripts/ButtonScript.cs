@@ -19,12 +19,12 @@ public class ButtonScript : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>(); //Initialize GameManager using the Find() method 
     }
 
-    private void ClickRestart()
+    public void ClickRestart()
     {
         SceneManager.LoadScene(1);
     }
 
-    private void ClickQuit() 
+    public void ClickQuit() 
     {
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
@@ -33,7 +33,7 @@ Application.Quit();
 #endif
     }
 
-    private void ClickRestHighScore()
+    public void ClickRestHighScore()
     {
         gameManager.Reset(); 
     }
